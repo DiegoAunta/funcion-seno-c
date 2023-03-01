@@ -66,3 +66,44 @@ int factorial(int m){
     }
     return result;
 }
+
+
+
+double mysin(double x, int nterms);
+int factorial(int m);
+double mysinpade(double x, int terms);
+
+int main(int argc, char **argv)
+{
+  double x {0.0};
+  int NTERMS{0};
+
+  if(argc != 3) {
+    std::cerr << "ERROR.\nUsage:\n" << argv[0] << " x nterms\n";
+    return 1;
+  }
+  
+  x = std::stod(argv[1]);
+  NTERMS = std::stoi(argv[2]);
+
+  double exact = std::sin(x);
+  double myval = mysin(x, NTERMS);
+  std::cout << NTERMS << "\t" << myval << "\t"
+            << exact << "\t" << std::fabs(1.0 - myval/exact) 
+            << "\n";
+/////////////////////////////////////////////////////////pade/////////////////////////////////////////////  
+  //aproximacion padé
+  double myvalpade = mysinpade(x,NTERMS);
+  
+  std::cout<<"padé: "<<myvalpade<<"\n";
+  
+  return 0;
+}
+
+// funcion pade 
+double mysinpade(double x, int terms)
+{
+    
+    double divi = (((12671/4363920.0)(std::pow(x,5)))-((2363/18183.0)(std::pow(x,3)))+x)/((1.0)+((445/12122.0)(std::pow(x,2)))+((601/872784.0)(std::pow(x,4)))+((121/16662240.0)*(std::pow(x,6))));
+    return divi;
+}
